@@ -1,7 +1,9 @@
 import React from "react";
 
 const Card = (props) => {
-  return <div className="rounded-lg shadow-2xl">{props.children}</div>;
+  const classes = "rounded-lg shadow-2xl " + props.className;
+
+  return <div className={classes}>{props.children}</div>;
 };
 
 export default Card;
