@@ -3,10 +3,12 @@ import Card from "../UI/Card";
 import TodoDate from "./TodoDate";
 
 const TodoItem = (props) => {
-  const dueDate = props.date.getSeconds();
-  const now = new Date(props.date).getSeconds();
-  console.log("now " + now);
-  console.log("duedate " + dueDate);
+  const dueDate = Date.parse(props.date);
+  // console.log(props.date);
+  const now = Date.parse(new Date());
+  // console.log("now " + now);
+  // console.log("duedate " + dueDate);
+  console.log(props.title);
   // let content = (
   //   <div className="flex rounded-full h-10 w-10  items-center my-16 border-2 border-green-400 justify-center ">
   //     <img src="img/tick.svg" alt="tick" className="w-7 h-7" />
@@ -20,19 +22,22 @@ const TodoItem = (props) => {
   // );
 
   return (
-    <Card className="bg-gray-700 p-3 flex flex-row justify-evenly m-5 h-[11rem] w-[40rem] transition ease-in-out hover:scale-105 duration-100">
-      <div className="flex flex-row text-center justify-between gap-[18rem]">
-        <div className="flex flex-row ">
+    <Card className="bg-gray-700 p-3 flex flex-row justify-around m-5 h-[11rem] w-[40rem] transition ease-in-out hover:scale-105 duration-100">
+      <div className="flex text-center justify-around w-full">
+        <div className="flex flex-row w-10/12">
           <TodoDate date={props.date} />
-          <div className=" p-3 flex items-center">
-            <p className="text-white text-xl font-mono">{props.title}</p>
+          <div className="w-7/12 flex items-center">
+            <p className="text-white text-xl text-center font-mono">
+              {props.title}
+            </p>
           </div>
         </div>
-        <div className="flex rounded-full h-10 w-10  items-center my-16 border-2 border-green-400 justify-center ">
+        <div className="flex  rounded-full h-10 w-10  items-center my-16 border-2 border-green-400 justify-center ">
           <input
             type="checkbox"
             value=""
-            className="w-4 h-4 accent-emerald-500/25 text-green-600 "
+            id="inputCustom"
+            className="w-4 h-4 accent-green-500 rounded-full"
           />
         </div>
       </div>

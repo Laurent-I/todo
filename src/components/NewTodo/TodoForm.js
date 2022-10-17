@@ -4,7 +4,7 @@ import { useState } from "react";
 const TodoForm = (props) => {
   const [title, setTitle] = useState("");
   const [isTitleValid, setIsTitleValid] = useState(true);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [isDateValid, setIsDateValid] = useState(true);
 
   const titleChangeHandler = (event) => {

@@ -12,11 +12,11 @@ const DUMMY_TODOS = [
 ];
 
 function App() {
-  const [todos, setTodo] = useState(DUMMY_TODOS);
+  const [todos, setTodo] = useState("");
 
   const addTodoHandler = (todo) => {
     setTodo((prevTodo) => {
-      return [todo, ...prevTodo];
+      return [...prevTodo, todo];
     });
   };
 
