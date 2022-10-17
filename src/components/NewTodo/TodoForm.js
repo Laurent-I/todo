@@ -3,20 +3,35 @@ import { useState } from "react";
 
 const TodoForm = (props) => {
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [isTitleValid, setIsTitleValid] = useState(true);
+  const [date, setDate] = useState("");
+  const [isDateValid, setIsDateValid] = useState(true);
 
   const titleChangeHandler = (event) => {
+    if (event.target.value.trim().length > 0) {
+      setIsTitleValid(true);
+    }
     setTitle(event.target.value);
     // console.log(title);
   };
 
   const dateChangeHandler = (event) => {
+    if (event.target.value.trim().length > 0) {
+      setIsDateValid(true);
+    }
     setDate(event.target.value);
     // console.log(date);
   };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    if (title.trim().length === 0) {
+      setIsTitleValid(false);
+    }
+    if (date.trim().length === 0) {
+      setIsDateValid(false);
+      return;
+    }
 
     const todoData = {
       title,
@@ -29,8 +44,10 @@ const TodoForm = (props) => {
     setDate("");
   };
 
+  const invalidClasses = "bg-red border-red-500";
+
   return (
-    <div className="h-[16rem] w-[40rem] bg-slate-800 rounded-lg shadow-xl">
+    <div className="h-[18rem] w-[40rem] bg-slate-800 rounded-lg shadow-xl">
       <form onSubmit={formSubmitHandler}>
         <div className="flex flex-col m-3">
           <label className="font-bold text-lg text-white font-mono">
@@ -41,20 +58,34 @@ const TodoForm = (props) => {
             name="act"
             value={title}
             onChange={titleChangeHandler}
-            className="w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3"
+            className={`w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3 ${
+              !isTitleValid && invalidClasses
+            }`}
           />
+          {!isTitleValid && (
+            <p className="text-red-500 font-mono p-[0.15rem]">
+              Please add an activity!
+            </p>
+          )}
         </div>
         <div className="flex flex-col m-3">
           <label className="font-bold text-lg text-white font-mono">
-            Enter Due Date:
+            Enter Date:
           </label>
           <input
             type="date"
             name="act"
             value={date}
             onChange={dateChangeHandler}
-            className="w-1/2 mr-3 border-[3px] rounded-md focus:border focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3"
+            className={`w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3 ${
+              !isDateValid && invalidClasses
+            }`}
           />
+          {!isDateValid && (
+            <p className="text-red-500 font-mono p-[0.15rem]">
+              Please add a date!
+            </p>
+          )}
         </div>
         <div className="flex justify-end">
           <button
