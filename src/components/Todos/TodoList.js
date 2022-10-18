@@ -11,10 +11,17 @@ const TodoList = (props) => {
   if (props.items.length === 0) {
     return content;
   }
+
   return (
     <ul>
       {props.items.map((todos) => (
-        <TodoItem key={todos.id} title={todos.title} date={todos.date} />
+        <TodoItem
+          id={todos.id}
+          key={todos.id}
+          title={todos.title}
+          date={todos.date}
+          onDelete={props.onDelete}
+        />
       ))}
     </ul>
   );

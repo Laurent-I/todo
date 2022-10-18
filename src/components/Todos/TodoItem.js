@@ -29,7 +29,11 @@ const TodoItem = (props) => {
   }
 
   return (
-    <Card className="bg-gray-700 p-3 flex flex-row justify-around m-5 h-[11rem] w-[40rem] transition ease-in-out hover:scale-105 duration-100">
+    <Card
+      className="bg-gray-700 p-3 flex flex-row justify-around m-5 h-[11rem] w-[40rem] transition ease-in-out hover:scale-105 duration-100"
+      onDelete={props.onDelete}
+      id={props.id}
+    >
       <div className="flex text-center justify-around w-full">
         <div className="flex flex-row w-10/12">
           <TodoDate date={props.date} />

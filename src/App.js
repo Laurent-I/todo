@@ -20,10 +20,16 @@ function App() {
     });
   };
 
+  const deleteItemHandler = (todoId) => {
+    setTodo((prevTodo) => {
+      return prevTodo.filter((todo) => todo.id !== todoId);
+    });
+  };
+
   return (
     <div className="flex flex-col items-center mt-11 ">
       <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={todos} />
+      <Todos items={todos} onDeleteItem={deleteItemHandler} />
     </div>
   );
 }
