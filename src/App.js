@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-11 ">
+    <div className="flex flex-col items-center ">
       <NewTodo onAddTodo={addTodoHandler} />
       <Todos items={todos} onDeleteItem={deleteItemHandler} />
     </div>
