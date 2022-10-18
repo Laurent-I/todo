@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import TodoDate from "./TodoDate";
 
 const TodoItem = (props) => {
+  let isPending;
   const dueDate = Date.parse(props.date);
   // console.log(props.date);
   const now = Date.parse(new Date());
@@ -21,6 +22,12 @@ const TodoItem = (props) => {
   //   </div>
   // );
 
+  if (dueDate > now) {
+    isPending = true;
+  } else {
+    isPending = false;
+  }
+
   return (
     <Card className="bg-gray-700 p-3 flex flex-row justify-around m-5 h-[11rem] w-[40rem] transition ease-in-out hover:scale-105 duration-100">
       <div className="flex text-center justify-around w-full">
@@ -32,14 +39,23 @@ const TodoItem = (props) => {
             </p>
           </div>
         </div>
-        <div className="flex  rounded-full h-10 w-10  items-center my-16 border-2 border-green-400 justify-center ">
-          <input
-            type="checkbox"
-            value=""
-            id="inputCustom"
-            className="w-4 h-4 accent-green-500 rounded-full"
-          />
-        </div>
+        {!isPending && (
+          <div className="flex  rounded-full h-10 w-10  items-center my-16  justify-center ">
+            <input
+              type="checkbox"
+              value=""
+              id="inputCustom"
+              className="w-4 h-4 accent-green-500 rounded-full"
+              checked
+              readOnly
+            />
+          </div>
+        )}
+        {isPending && (
+          <div className="flex my-16 items-center text-center justify-center">
+            <p className="text-red-500 animate-pulse">Upcoming...</p>
+          </div>
+        )}
       </div>
     </Card>
   );

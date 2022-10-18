@@ -6,6 +6,11 @@ const TodoForm = (props) => {
   const [isTitleValid, setIsTitleValid] = useState(true);
   const [date, setDate] = useState(new Date());
   const [isDateValid, setIsDateValid] = useState(true);
+  const [isDateTrue, setIsDateTrue] = useState(true);
+
+  const dueDate = Date.parse(props.date);
+  // console.log(props.date);
+  const now = Date.parse(new Date());
 
   const titleChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
@@ -28,8 +33,14 @@ const TodoForm = (props) => {
     if (title.trim().length === 0) {
       setIsTitleValid(false);
     }
+
     if (date.trim().length === 0) {
       setIsDateValid(false);
+      return;
+    }
+
+    if (dueDate < now) {
+      setIsDateTrue(false);
       return;
     }
 
@@ -84,6 +95,11 @@ const TodoForm = (props) => {
           {!isDateValid && (
             <p className="text-red-500 font-mono p-[0.15rem]">
               Please add a date!
+            </p>
+          )}
+          {!isDateTrue && (
+            <p className="text-red-500 font-mono p-[0.15rem]">
+              Please enter a valid date
             </p>
           )}
         </div>
