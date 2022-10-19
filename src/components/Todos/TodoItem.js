@@ -27,6 +27,10 @@ const TodoItem = (props) => {
   } else {
     isPending = false;
   }
+  const deleteHandler = () => {
+    // setDeleteText('(Deleted!)');
+    props.onDelete(props.id);
+  };
 
   return (
     <Card
@@ -56,8 +60,15 @@ const TodoItem = (props) => {
           </div>
         )}
         {isPending && (
-          <div className="flex my-16 items-center text-center justify-center">
-            <p className="text-red-500 animate-pulse">Upcoming...</p>
+          <div className="flex flex-col my-16 items-center text-center justify-center w-1/4">
+            <p className="text-red-500 animate-pulse mb-1">Upcoming...</p>
+            <button
+              className=" transition ease-in-out  mr-3 bg-red-500 h-10 w-full p-2 mt-2 text-white rounded-lg hover:bg-red-600 hover:scale-105 duration-200 font-semibold font-mono text-lg"
+              type="submit"
+              onClick={deleteHandler}
+            >
+              Cancel
+            </button>
           </div>
         )}
       </div>
