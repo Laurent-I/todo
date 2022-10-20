@@ -1,60 +1,42 @@
-import React, { useRef } from "react";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import Modal from "../UI/Modal";
 
 const TodoForm = (props) => {
   const eventInputRef = useRef();
   const dateInputRef = useRef();
 
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState(new Date());
   const [error, setError] = useState();
 
-  // const dueDate = Date.parse(props.date);
-  // // console.log(props.date);
-  // const now = Date.parse(new Date());
-
-  const titleChangeHandler = (event) => {
-    // if (event.target.value.trim().length > 0) {
-    //   setIsTitleValid(true);
-    // }
-    setTitle(event.target.value);
-    // console.log(title);
-  };
-
-  const dateChangeHandler = (event) => {
-    // if (event.target.value.trim().length > 0) {
-    //   setIsDateValid(true);
-    // }
-    setDate(event.target.value);
-    // console.log(date);
-  };
+  const dueDate = Date.parse(props.date);
+  const now = Date.parse(new Date());
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    const enteredEvent = eventInputRef.current.value();
-    if (title.trim().length === 0 || date.trim().length === 0) {
+    const enteredEvent = eventInputRef.current.value;
+    const enteredDate = dateInputRef.current.value;
+    if (enteredEvent.trim().length === 0 || enteredDate.trim().length === 0) {
       setError({
         title: "Invalid Input",
-        message: "Please enter valid inputs (non-empty values)",
+        message: "Please enter valid event and date (non-empty values)",
       });
       return;
     }
 
-    // if (dueDate < now) {
-    //   setIsDateTrue(false);
-    //   return;
-    // }
+    if (dueDate < now) {
+      setError({
+        title: "Invalid Input",
+        message: "A date must be set in the future",
+      });
+      return;
+    }
 
     const todoData = {
-      title,
-      date: new Date(date),
+      title: enteredEvent,
+      date: new Date(enteredDate),
     };
-    // console.log(todoData);
     props.onSaveTodo(todoData);
-
-    setTitle("");
-    setDate("");
+    eventInputRef.current.value = "";
+    dateInputRef.current.value = "";
   };
   const confirmHandler = () => {
     setError(null);
