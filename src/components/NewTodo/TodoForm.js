@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import Modal from "../UI/Modal";
 
 const TodoForm = (props) => {
+  const eventInputRef = useRef();
+  const dateInputRef = useRef();
+
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(new Date());
   const [error, setError] = useState();
@@ -29,6 +32,7 @@ const TodoForm = (props) => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    const enteredEvent = eventInputRef.current.value();
     if (title.trim().length === 0 || date.trim().length === 0) {
       setError({
         title: "Invalid Input",
@@ -72,10 +76,9 @@ const TodoForm = (props) => {
               Enter Todo:
             </label>
             <input
+              ref={eventInputRef}
               type="text"
               name="act"
-              value={title}
-              onChange={titleChangeHandler}
               className={`w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3 `}
             />
           </div>
@@ -84,10 +87,9 @@ const TodoForm = (props) => {
               Enter Date:
             </label>
             <input
+              ref={dateInputRef}
               type="date"
               name="act"
-              value={date}
-              onChange={dateChangeHandler}
               className={`w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3`}
             />
           </div>
