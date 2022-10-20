@@ -1,26 +1,19 @@
 import React from "react";
 import Card from "./Card";
 import ReactDOM from "react-dom";
-
-const Backdrop = (props) => {
-  return (
-    <div
-      className="bg-slate-700 bg-opacity-50 w-full h-full z-[10] fixed"
-      onClick={props.onConfirm}
-    />
-  );
-};
+import Backdrop from "./Backdrop";
 
 const ModalOverlay = (props) => {
   return (
     <div className="flex justify-center">
-      <Card className=" flex flex-col h-[14rem] w-[36rem] bg-white z-[100] top-60 fixed ">
-        <header className="h-[4rem] w-full bg-slate-800 ">
-          <h1 className="text-white font-mono font-bold text-2xl m-3">
+      <Card className=" flex flex-col h-[14rem] w-[36rem] bg-white z-[100] top-60 fixed  ">
+        <header className="h-[4rem] w-full bg-slate-800 flex justify-center items-center">
+          <h1 className="text-white font-mono font-bold text-2xl m-3 ">
             {props.title}
           </h1>
         </header>
-        <div className="flex justify-between items-center ">
+        <div className="flex flex-col justify-between items-center ">
+          {props.status}
           <p className="text-md font-mono text-lg m-auto mt-5">
             {props.message}
           </p>
@@ -49,6 +42,7 @@ const Modal = (props) => {
       {ReactDOM.createPortal(
         <ModalOverlay
           title={props.title}
+          status={props.status}
           message={props.message}
           onConfirm={props.onConfirm}
           className={props.className}

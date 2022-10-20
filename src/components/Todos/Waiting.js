@@ -4,12 +4,12 @@ import ReactDOM from "react-dom";
 import Card from "../UI/Card";
 
 const title = "Status!";
-const message = "Completed";
+const message = "Pending";
 const status = (
-  <img src="img/complete.gif" alt="" className="w-32 h-full mb-2" />
+  <img src="img/warning.gif" alt="" className="w-32 h-full mb-2" />
 );
 
-const CompleteModal = (props) => {
+const WaitingModal = (props) => {
   return (
     <div className="flex justify-center">
       <Card className=" flex flex-col h-[20rem] w-[36rem] bg-white z-[100] top-60 fixed  ">
@@ -20,14 +20,14 @@ const CompleteModal = (props) => {
         </header>
         <div className="h-32 flex flex-col justify-center items-center mt-8">
           {props.status}
-          <p className="font-mono text-2xl text-green-500">{props.message}</p>
+          <p className="font-mono text-2xl text-red-500">{props.message}</p>
         </div>
       </Card>
     </div>
   );
 };
 
-const Complete = (props) => {
+const Waiting = (props) => {
   return (
     <Fragment>
       {ReactDOM.createPortal(
@@ -35,7 +35,7 @@ const Complete = (props) => {
         document.getElementById("backdrop")
       )}
       {ReactDOM.createPortal(
-        <CompleteModal
+        <WaitingModal
           title={title}
           message={message}
           status={status}
@@ -47,4 +47,4 @@ const Complete = (props) => {
   );
 };
 
-export default Complete;
+export default Waiting;
