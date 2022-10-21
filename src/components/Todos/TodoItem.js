@@ -7,9 +7,8 @@ import Waiting from "./Waiting";
 const TodoItem = (props) => {
   const [show, setShow] = useState(false);
   const [isPending, setIsPending] = useState();
-  // let isPending;
   const dueDate = Date.parse(props.date);
-  // console.log(props.date);
+  console.log(props.date);
   const now = Date.parse(new Date());
   // console.log("now " + now);
   // console.log("duedate " + dueDate);
@@ -24,7 +23,6 @@ const TodoItem = (props) => {
   }, []);
 
   const deleteHandler = () => {
-    // setDeleteText('(Deleted!)');
     props.onDelete(props.id);
   };
   const showHandler = () => {
@@ -41,7 +39,9 @@ const TodoItem = (props) => {
     <>
       {show && <Complete onConfirm={hideHandler} />}
 
-      {show && isPending && <Waiting onConfirm={hideHandler} />}
+      {show && isPending && (
+        <Waiting onConfirm={hideHandler} now={now} due={dueDate} />
+      )}
       <Card
         className="bg-gray-700 p-3 flex flex-row justify-around m-5 h-[11rem] w-[40rem] transition ease-in-out hover:scale-105 duration-100"
         onDelete={props.onDelete}
@@ -74,14 +74,14 @@ const TodoItem = (props) => {
               <p className="text-red-500 animate-pulse mb-1">Upcoming...</p>
               <div className="flex justify-between">
                 <button
-                  className=" transition ease-in-out  mr-3 bg-red-500 h-10 w-full p-2 mt-2 text-white rounded-lg hover:bg-red-600 hover:scale-105 duration-200 font-semibold font-mono text-lg"
+                  className=" transition ease-in-out  mr-3 bg-red-500 h-10 w-full p-2 mt-2 text-white rounded-lg hover:bg-red-600 hover:scale-105 duration-200 font-semibold font-mono text-md"
                   type="submit"
                   onClick={deleteHandler}
                 >
                   Cancel
                 </button>
                 <button
-                  className=" transition ease-in-out  mr-3 bg-green-500 h-10 w-full p-2 mt-2 text-white rounded-lg hover:bg-green-600 hover:scale-105 duration-200 font-semibold font-mono text-lg"
+                  className=" transition ease-in-out  mr-3 bg-green-500 h-10 w-full p-2 mt-2 text-white rounded-lg hover:bg-green-600 hover:scale-105 duration-200 font-semibold font-mono text-md"
                   type="submit"
                   onClick={finishHandler}
                 >
