@@ -6,7 +6,7 @@ import Card from "../UI/Card";
 const title = "Status!";
 const message = "Completed";
 const status = (
-  <img src="img/complete.gif" alt="" className="w-32 h-full mb-2" />
+  <img src="img/green-tick.gif" alt="" className="w-32 h-full mb-2" />
 );
 
 const CompleteModal = (props) => {

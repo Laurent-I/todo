@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
 import Complete from "./Complete";
 import TodoDate from "./TodoDate";
@@ -6,7 +6,8 @@ import Waiting from "./Waiting";
 
 const TodoItem = (props) => {
   const [show, setShow] = useState(false);
-  let isPending;
+  const [isPending, setIsPending] = useState();
+  // let isPending;
   const dueDate = Date.parse(props.date);
   // console.log(props.date);
   const now = Date.parse(new Date());
@@ -14,11 +15,14 @@ const TodoItem = (props) => {
   // console.log("duedate " + dueDate);
   console.log(props.title);
 
-  if (dueDate > now) {
-    isPending = true;
-  } else {
-    isPending = false;
-  }
+  useEffect(() => {
+    if (dueDate > now) {
+      setIsPending(true);
+    } else {
+      setIsPending(false);
+    }
+  }, []);
+
   const deleteHandler = () => {
     // setDeleteText('(Deleted!)');
     props.onDelete(props.id);
@@ -30,7 +34,7 @@ const TodoItem = (props) => {
     setShow(false);
   };
   const finishHandler = () => {
-    isPending = false;
+    setIsPending(false);
   };
 
   return (
