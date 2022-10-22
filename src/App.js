@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NewTodo from "./components/NewTodo/NewTodo";
 import Todos from "./components/Todos/Todos";
+import DeleteContext from "./store/del-context";
 
 const DUMMY_TODOS = [
   {
@@ -26,11 +27,18 @@ function App() {
     });
   };
 
+  const contextValue = {
+    deleteHandler: deleteItemHandler,
+    addHandler: addTodoHandler,
+  };
+
   return (
-    <div className="flex flex-col items-center ">
-      <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={todos} onDeleteItem={deleteItemHandler} />
-    </div>
+    <DeleteContext.Provider value={contextValue}>
+      <div className="flex flex-col items-center ">
+        <NewTodo />
+        <Todos items={todos} />
+      </div>
+    </DeleteContext.Provider>
   );
 }
 

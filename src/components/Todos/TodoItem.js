@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import DeleteContext from "../../store/del-context";
 import Card from "../UI/Card";
 import Complete from "./Complete";
 import TodoDate from "./TodoDate";
 import Waiting from "./Waiting";
 
 const TodoItem = (props) => {
+  const ctx = useContext(DeleteContext);
   const [show, setShow] = useState(false);
   const [isPending, setIsPending] = useState();
   const dueDate = Date.parse(props.date);
@@ -23,7 +25,7 @@ const TodoItem = (props) => {
   }, []);
 
   const deleteHandler = () => {
-    props.onDelete(props.id);
+    ctx.deleteHandler(props.id);
   };
   const showHandler = () => {
     setShow(true);

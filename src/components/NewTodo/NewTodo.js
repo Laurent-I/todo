@@ -1,18 +1,10 @@
 import React from "react";
 import TodoForm from "./TodoForm";
 
-const NewTodo = (props) => {
-  const saveDataHandler = (enteredTodoData) => {
-    const todoData = {
-      ...enteredTodoData,
-      id: Math.random().toString(),
-    };
-
-    props.onAddTodo(todoData);
-  };
+const NewTodo = () => {
   return (
     <>
-      <TodoForm onSaveTodo={saveDataHandler} />
+      <TodoForm />
     </>
   );
 };

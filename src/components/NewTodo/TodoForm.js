@@ -1,9 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import DeleteContext from "../../store/del-context";
 import Modal from "../UI/Modal";
 
 const TodoForm = (props) => {
   const eventInputRef = useRef();
   const dateInputRef = useRef();
+
+  const ctx = useContext(DeleteContext);
 
   const [error, setError] = useState();
 
@@ -34,7 +37,7 @@ const TodoForm = (props) => {
       title: enteredEvent,
       date: new Date(enteredDate),
     };
-    props.onSaveTodo(todoData);
+    ctx.addHandler(todoData);
     eventInputRef.current.value = "";
     dateInputRef.current.value = "";
   };

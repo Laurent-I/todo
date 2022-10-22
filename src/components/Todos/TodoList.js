@@ -20,7 +20,6 @@ const TodoList = (props) => {
           key={todos.id}
           title={todos.title}
           date={todos.date}
-          onDelete={props.onDelete}
         />
       ))}
     </ul>
