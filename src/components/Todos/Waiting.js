@@ -17,35 +17,30 @@ const WaitingModal = (props) => {
     hours: 0,
     minutes: 0,
   });
+
   const difference = (date1, date2) => {
     // calculate the time difference of two dates JavaScript
     console.log("Now:", date1);
     var diffTime = date2.getTime() - date1.getTime();
-    var diffSecond = diffTime / 1000;
+    var days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(
+      (diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    var minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((diffTime % (1000 * 60)) / 1000);
 
-    var diffMin = diffSecond / 60;
-
-    // calculate the number of days between hours dates javascript
-    var hoursDiff = diffMin / 60;
-    console.log("hours left:", hoursDiff);
-
-    var daysLeft = hoursDiff / 24;
-    var hoursLeft = (daysLeft - Math.round(daysLeft)) * 24;
-    var minutesLeft = (Math.round(hoursLeft) - hoursLeft) * 60;
     let newTime = { ...remainingTime };
-    newTime.days = Math.abs(daysLeft).toFixed(0);
-    newTime.hours = Math.abs(hoursLeft).toFixed(0);
-    newTime.minutes = Math.abs(minutesLeft).toFixed(0);
-    console.log(newTime);
+    newTime.days = days;
+    newTime.hours = hours;
+    newTime.minutes = minutes;
+    newTime.seconds = seconds;
     setRemainingTime(newTime);
   };
 
   useEffect(() => {
     setInterval(() => {
       difference(new Date(), dueDate);
-      console.log("useEffect called");
-    }, 1000);
-    // return clearInterval(myInterval);
+    }, 100);
   }, []);
   return (
     <div className="flex justify-center">
@@ -61,7 +56,7 @@ const WaitingModal = (props) => {
             {props.message}
             {`${remainingTime.days > 1 ? remainingTime.days : "0"}days ${
               remainingTime.hours
-            }hrs ${remainingTime.minutes}min`}
+            }hrs ${remainingTime.minutes}min ${remainingTime.seconds}s`}
           </p>
         </div>
       </Card>
