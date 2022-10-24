@@ -39,7 +39,7 @@ function App() {
   return (
     <DeleteContext.Provider value={contextValue}>
       <Header />
-      <Login />
+      {!ctx.isLoggedIn && <Login />}
       {ctx.isLoggedIn && (
         <div className="flex flex-col items-center ">
           <NewTodo />
