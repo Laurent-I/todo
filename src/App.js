@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Login from "./components/Login/Login";
 import NewTodo from "./components/NewTodo/NewTodo";
 import Todos from "./components/Todos/Todos";
+import Header from "./components/UI/Header";
+import AuthContext from "./store/auth-context";
 import DeleteContext from "./store/del-context";
 
 const DUMMY_TODOS = [
@@ -14,6 +17,7 @@ const DUMMY_TODOS = [
 
 function App() {
   const [todos, setTodo] = useState(DUMMY_TODOS);
+  const ctx = useContext(AuthContext);
 
   const addTodoHandler = (todo) => {
     setTodo((prevTodo) => {
@@ -34,10 +38,14 @@ function App() {
 
   return (
     <DeleteContext.Provider value={contextValue}>
-      <div className="flex flex-col items-center ">
-        <NewTodo />
-        <Todos items={todos} />
-      </div>
+      <Header />
+      <Login />
+      {ctx.isLoggedIn && (
+        <div className="flex flex-col items-center ">
+          <NewTodo />
+          <Todos items={todos} />
+        </div>
+      )}
     </DeleteContext.Provider>
   );
 }
