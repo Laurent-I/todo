@@ -9,12 +9,12 @@ const AuthContext = React.createContext({
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const loginHandler = () => {
-    setIsLoggedIn(true);
+  const loginHandler = (state) => {
+    setIsLoggedIn(state);
   };
 
-  const logoutHandler = () => {
-    setIsLoggedIn(false);
+  const logoutHandler = (state) => {
+    setIsLoggedIn(state);
   };
 
   const contextValue = {

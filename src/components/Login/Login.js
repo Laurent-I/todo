@@ -1,3 +1,4 @@
+// import { is } from "immer/dist/internal";
 import React, { useReducer, useState, useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import Card from "../UI/Card";
@@ -42,6 +43,8 @@ const passwordReducer = (action, state) => {
 
 const Login = () => {
   const ctx = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const loginHandler = ctx.loginHandler;
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
     isValid: false,
@@ -51,12 +54,14 @@ const Login = () => {
     isValid: false,
   });
 
-  // const [formIsValid, setIsFormValid] = useState(false);
   const [error, setError] = useState();
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (emailState.isValid && passwordState.isValid) {
-      ctx.isLoggedIn = true;
+      setIsLoggedIn(true);
+      ctx.loginHandler(isLoggedIn);
+      console.log(emailState);
+      console.log(passwordState);
     }
 
     if (!emailState.isValid || !passwordState.isValid) {
@@ -64,11 +69,9 @@ const Login = () => {
         title: "Invalid Input",
         message: "Please enter valid email or password",
       });
+      console.log(emailState);
+      console.log(passwordState);
       return;
-    }
-
-    if (emailState.isValid && passwordState.isValid) {
-      ctx.loginHandler();
     }
   };
 
