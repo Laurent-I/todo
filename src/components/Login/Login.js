@@ -1,37 +1,53 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../store/auth-context";
 import Card from "../UI/Card";
 import Modal from "../UI/Modal";
 
 const Login = () => {
   const ctx = useContext(AuthContext);
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+  const [enteredPassword, setEnteredPassword] = useState("");
+  const [enteredEmail, setEnteredEmail] = useState("");
+  // const emailInputRef = useRef();
+  // const passwordInputRef = useRef();
 
-  const [error, setError] = useState();
-  const formSubmitHandler = (event) => {
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    event.preventDefault();
+  const [error, setError] = useState(null);
 
+  const emailChangeHandler = (event) => {
+    setEnteredEmail(event.target.value);
+  };
+
+  const passwordChangeHandler = (event) => {
+    setEnteredPassword(event.target.value);
+  };
+
+  useEffect(() => {
     if (enteredEmail.includes("@") && enteredPassword.trim().length > 6) {
       setIsValid(true);
-      setError(null);
-    }
-
-    if (isValid) {
-      setIsLoggedIn(true);
-      ctx.loginHandler(isLoggedIn);
-    }
-
-    if (!isValid) {
+    } else if (!isValid) {
       setError({
         title: "Invalid Input",
         message: "Please enter valid email or password",
       });
       return;
+    }
+
+    // return () => {
+    //   second;
+    // };
+  }, [enteredEmail, enteredPassword]);
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    // const enteredEmail = emailInputRef.current.value;
+    // const enteredPassword = passwordInputRef.current.value;
+    console.log(enteredEmail, enteredPassword);
+
+    if (isValid) {
+      setIsLoggedIn(true);
+      ctx.loginHandler(isLoggedIn);
+      setError(null);
     }
   };
 
@@ -58,7 +74,9 @@ const Login = () => {
                 type="email"
                 name="user"
                 className={`w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3 `}
-                ref={emailInputRef}
+                // ref={emailInputRef}
+                value={enteredEmail}
+                onChange={emailChangeHandler}
               />
             </div>
             <div className="flex flex-col m-3">
@@ -69,7 +87,9 @@ const Login = () => {
                 type="password"
                 name="Password"
                 className={`w-1/2 mr-3 border-[3px] rounded-md focus:border-2 focus:outline-none  focus:border-blue-500 text-gray-500  border-slate-400 h-10 p-3`}
-                ref={passwordInputRef}
+                // ref={passwordInputRef}
+                value={enteredPassword}
+                onChange={passwordChangeHandler}
               />
             </div>
             <div className="flex justify-end">

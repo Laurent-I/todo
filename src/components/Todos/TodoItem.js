@@ -24,7 +24,7 @@ const TodoItem = (props) => {
     }
   }, []);
 
-  const deleteHandler = () => {
+  const deleteHandler = (props) => {
     ctx.deleteHandler(props.id);
   };
   const showHandler = () => {
